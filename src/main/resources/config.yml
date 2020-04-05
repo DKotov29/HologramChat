@@ -1,0 +1,4 @@
+visibleTime: 5000
+#in milliseconds
+
+holoChatFormat: "{playername}: {message} "
