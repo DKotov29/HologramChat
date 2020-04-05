@@ -23,16 +23,20 @@ public class MainListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGH)
     public void onChat(AsyncPlayerChatEvent event) {
-        Player player = event.getPlayer();
-        ArmorStand entity = (ArmorStand) player.getWorld().spawnEntity(player.getLocation(), EntityType.ARMOR_STAND);
+        chat(event.getPlayer(), event.getMessage());
+    }
+
+    private void chat(Player p, String msg){
+        ArmorStand entity =
+                (ArmorStand) p.getWorld().spawnEntity(p.getLocation(), EntityType.ARMOR_STAND);
         entity.setVisible(false);
         entity.setCustomName(holoChatFormat
-                .replace("{message}", event.getMessage())
-                .replace("{playername}", player.getDisplayName())
+                .replace("{message}", msg)
+                .replace("{playername}", p.getDisplayName())
                 .replace("&", "§")
         );
         entity.setCustomNameVisible(true);
-        player.addPassenger(entity);
+        p.addPassenger(entity);
         main.getServer().getScheduler().runTaskLaterAsynchronously(
                 main,
                 task -> {
